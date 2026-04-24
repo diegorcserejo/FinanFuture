@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Aposentadoria | FinanFuture</title>
+    <link rel="stylesheet" href="/frontend/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">💰</div>
+                <span class="logo-text">Finan<span class="highlight">Future</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">Início</a>
+                <a href="simulador.html" class="nav-link active">Simulador</a>
+                <a href="educacao.html" class="nav-link">Educação</a>
+                <a href="dicas.html" class="nav-link">Dicas</a>
+            </div>
+            <div class="menu-toggle">☰</div>
+        </div>
+    </nav>
+
+    <div class="dashboard">
+        <div class="welcome-card animate-slide">
+            <div class="welcome-badge">
+                <span class="badge">✨ Planejamento Inteligente</span>
+            </div>
+            <h1>Simulador de Aposentadoria</h1>
+            <p>Projeções precisas com juros compostos, inflação e múltiplos cenários</p>
+            <div class="floating-icons">
+                <div class="float-icon">📈</div>
+                <div class="float-icon">💵</div>
+                <div class="float-icon">🏦</div>
+                <div class="float-icon">📊</div>
+            </div>
+        </div>
+
+        <div class="two-columns">
+            <!-- Painel de controles -->
+            <div class="controls-card animate-slide-left">
+                <h2> Parâmetros Financeiros</h2>
+                
+                <div class="slider-group">
+                    <label>
+                        <span>Idade atual</span>
+                        <span class="value-badge" id="idadeAtualVal">30</span>
+                    </label>
+                    <input type="range" id="idadeAtual" min="18" max="70" value="30">
+                </div>
+
+                <div class="slider-group">
+                    <label>
+                        <span>Idade de aposentadoria</span>
+                        <span class="value-badge" id="idadeAposVal">60</span>
+                    </label>
+                    <input type="range" id="idadeAposentadoria" min="40" max="80" value="60">
+                </div>
+
+                <div class="slider-group">
+                    <label>
+                        <span>Patrimônio atual</span>
+                        <span class="value-badge" id="patrimonioAtualVal">R$ 50.000</span>
+                    </label>
+                    <input type="range" id="patrimonioAtual" min="0" max="500000" step="5000" value="50000">
+                </div>
+
+                <div class="slider-group">
+                    <label>
+                        <span>Aporte mensal</span>
+                        <span class="value-badge" id="aporteMensalVal">R$ 1.000</span>
+                    </label>
+                    <input type="range" id="aporteMensal" min="0" max="10000" step="100" value="1000">
+                </div>
+
+                <div class="slider-group">
+                    <label>
+                        <span>Taxa de juros real</span>
+                        <span class="value-badge" id="taxaJurosVal">5.0%</span>
+                    </label>
+                    <input type="range" id="taxaJuros" min="0" max="15" step="0.5" value="5.0">
+                </div>
+
+                <div class="checkbox-group">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="modoAvancado">
+                        <span class="toggle-slider"></span>
+                    </label>
+                    <label>Modo Avançado (inflação + classes de ativos)</label>
+                </div>
+
+                <div id="painelAvancado" style="display: none;">
+                    <div class="slider-group">
+                        <label>
+                            <span>Inflação média anual</span>
+                            <span class="value-badge" id="inflacaoVal">3.0%</span>
+                        </label>
+                        <input type="range" id="inflacao" min="0" max="10" step="0.5" value="3.0">
+                    </div>
+                    <div class="radio-group">
+                        <p>Classe de ativo:</p>
+                        <div class="radio-options">
+                            <label class="radio-card">
+                                <input type="radio" name="classeAtivo" value="conservador">
+                                <span>Conservador</span>
+                                <small>4% a.a.</small>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="classeAtivo" value="moderado" checked>
+                                <span>Moderado</span>
+                                <small>6% a.a.</small>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="classeAtivo" value="arrojado">
+                                <span>Arrojado</span>
+                                <small>9% a.a.</small>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button id="btnCalcular" class="btn-primary">
+                        <span class="btn-icon"></span>
+                        Calcular Projeção
+                    </button>
+                    <button id="btnExportCSV" class="btn-secondary">
+                        <span class="btn-icon"></span>
+                        Exportar CSV
+                    </button>
+                </div>
+            </div>
+
+            <!-- Gráfico e tabela -->
+            <div class="results-card animate-slide-right">
+                <div class="results-header">
+                    <h2>Evolução Patrimonial</h2>
+                    <div class="live-indicator">
+                        <div class="pulse-dot"></div>
+                        <span>Atualização em tempo real</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="graficoEvolucao"></canvas>
+                </div>
+                
+                <div class="resumo-meta">
+                    <div class="meta-card">
+                        <span class="meta-icon"></span>
+                        <div>
+                            <p>Patrimônio na aposentadoria</p>
+                            <strong id="patrimonioFinal">--</strong>
+                        </div>
+                    </div>
+                    <div class="meta-card">
+                        <span class="meta-icon"></span>
+                        <div>
+                            <p>Total aportado</p>
+                            <strong id="totalAportado">--</strong>
+                        </div>
+                    </div>
+                    <div class="meta-card">
+                        <span class="meta-icon"></span>
+                        <div>
+                            <p>Juros ganhos</p>
+                            <strong id="jurosGanhos">--</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Tabela Resumo Anual</h3>
+                <div class="table-wrapper">
+                    <table id="tabelaResumo">
+                        <thead>
+                            <tr><th>Ano</th><th>Idade</th><th>Patrimônio (R$)</th><th>Aporte anual (R$)</th></tr>
+                        </thead>
+                        <tbody id="tabelaCorpo">
+                            <tr><td colspan="4">Clique em "Calcular"</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/frontend/js/app.js"></script>
+    <script>
+        // Menu mobile toggle
+        document.querySelector('.menu-toggle')?.addEventListener('click', () => {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+    </script>
+</body>
+</html>

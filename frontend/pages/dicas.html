@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dicas Financeiras | FinanFuture</title>
+    <link rel="stylesheet" href="/frontend/css/style.css">
+    <style>
+        .tips-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .tip-item {
+            background: white;
+            border-radius: 15px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .tip-item:hover {
+            transform: translateX(10px);
+            background: linear-gradient(90deg, white, #f7fafc);
+        }
+        .tip-number {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">💰</div>
+                <span class="logo-text">Finan<span class="highlight">Future</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">🏠 Início</a>
+                <a href="simulador.html" class="nav-link">📊 Simulador</a>
+                <a href="educacao.html" class="nav-link">📚 Educação</a>
+                <a href="dicas.html" class="nav-link active">💡 Dicas</a>
+            </div>
+            <div class="menu-toggle">☰</div>
+        </div>
+    </nav>
+
+    <div class="dashboard">
+        <div class="welcome-card animate-slide">
+            <h1>💡 Dicas para Aposentadoria</h1>
+            <p>Estratégias práticas para alcançar sua independência financeira</p>
+        </div>
+
+        <div class="tips-list">
+            <div class="tip-item">
+                <div class="tip-number">1</div>
+                <div>
+                    <strong>Comece hoje, não amanhã</strong>
+                    <p>O tempo é seu maior aliado nos juros compostos</p>
+                </div>
+            </div>
+            <div class="tip-item">
+                <div class="tip-number">2</div>
+                <div>
+                    <strong>Aporte consistente > timing perfeito</strong>
+                    <p>Regularidade nos investimentos supera tentar acertar o mercado</p>
+                </div>
+            </div>
+            <div class="tip-item">
+                <div class="tip-number">3</div>
+                <div>
+                    <strong>Revise seus gastos anualmente</strong>
+                    <p>Reduza despesas desnecessárias e direcione para investimentos</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('.menu-toggle')?.addEventListener('click', () => {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanFuture | Planejamento de Aposentadoria</title>
+    <link rel="stylesheet" href="/frontend/css/style.css">
+    <link rel="stylesheet" href="/frontend/css/style2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">💰</div>
+                <span class="logo-text">Finan<span class="highlight">Future</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">Início</a>
+                <a href="pages/simulador.html" class="nav-link">Simulador</a>
+                <a href="pages/educacao.html" class="nav-link">Educação</a>
+                <a href="pages/dicas.html" class="nav-link">Dicas</a>
+            </div>
+            <div class="menu-toggle">☰</div>
+        </div>
+    </nav>
+
+    <div class="dashboard">
+        <div class="hero-section animate-slide">
+            <h1 class="hero-title">💰 FinanFuture</h1>
+            <p class="hero-subtitle">Planeje hoje, viva amanhã com tranquilidade financeira</p>
+            <a href="pages/simulador.html" class="cta-button">
+                 Começar Agora
+                <span>→</span>
+            </a>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card" onclick="location.href='pages/simulador.html'">
+                <div class="feature-icon"></div>
+                <h3>Simulador Avançado</h3>
+                <p>Projeções precisas com juros compostos, inflação e múltiplos cenários</p>
+            </div>
+            <div class="feature-card" onclick="location.href='pages/educacao.html'">
+                <div class="feature-icon"></div>
+                <h3>Educação Financeira</h3>
+                <p>Aprenda os fundamentos para construir um futuro próspero</p>
+            </div>
+            <div class="feature-card" onclick="location.href='pages/dicas.html'">
+                <div class="feature-icon"></div>
+                <h3>Dicas Exclusivas</h3>
+                <p>Estratégias práticas para alcançar independência financeira</p>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-number">10K+</div>
+                <div>Usuários ativos</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">R$ 50M+</div>
+                <div>Patrimônio planejado</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">98%</div>
+                <div>Satisfação</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('.menu-toggle')?.addEventListener('click', () => {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+    </script>
+</body>
+</html>
