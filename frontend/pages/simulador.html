@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulador de Aposentadoria | FinanFuture</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/frontend/css/style.css">
+    <link rel="stylesheet" href="/frontend/css/style2.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
@@ -13,42 +15,56 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <div class="logo-icon">💰</div>
+                <div class="logo-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
                 <span class="logo-text">Finan<span class="highlight">Future</span></span>
             </div>
             <div class="nav-links">
-                <a href="../index.html" class="nav-link">Início</a>
-                <a href="simulador.html" class="nav-link active">Simulador</a>
-                <a href="educacao.html" class="nav-link">Educação</a>
-                <a href="dicas.html" class="nav-link">Dicas</a>
+                <a href="../index.html" class="nav-link">
+                    <i class="fas fa-home"></i> Início
+                </a>
+                <a href="simulador.html" class="nav-link active">
+                    <i class="fas fa-calculator"></i> Simulador
+                </a>
+                <a href="educacao.html" class="nav-link">
+                    <i class="fas fa-graduation-cap"></i> Educação
+                </a>
+                <a href="dicas.html" class="nav-link">
+                    <i class="fas fa-lightbulb"></i> Dicas
+                </a>
             </div>
-            <div class="menu-toggle">☰</div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
     </nav>
 
     <div class="dashboard">
         <div class="welcome-card animate-slide">
             <div class="welcome-badge">
-                <span class="badge">✨ Planejamento Inteligente</span>
+                <span class="badge"><i class="fas fa-star"></i> Planejamento Inteligente</span>
             </div>
-            <h1>Simulador de Aposentadoria</h1>
-            <p>Projeções precisas com juros compostos, inflação e múltiplos cenários</p>
+            <h1 class="hero-title">
+                <i class="fas fa-chart-line"></i> Simulador de Aposentadoria
+            </h1>
+            <p class="hero-subtitle">Projeções precisas com juros compostos, inflação e múltiplos cenários</p>
             <div class="floating-icons">
-                <div class="float-icon">📈</div>
-                <div class="float-icon">💵</div>
-                <div class="float-icon">🏦</div>
-                <div class="float-icon">📊</div>
+                <div class="float-icon"><i class="fas fa-chart-line"></i></div>
+                <div class="float-icon"><i class="fas fa-coins"></i></div>
+                <div class="float-icon"><i class="fas fa-building"></i></div>
+                <div class="float-icon"><i class="fas fa-chart-pie"></i></div>
             </div>
         </div>
 
         <div class="two-columns">
             <!-- Painel de controles -->
             <div class="controls-card animate-slide-left">
-                <h2> Parâmetros Financeiros</h2>
+                <h2><i class="fas fa-sliders-h"></i> Parâmetros Financeiros</h2>
                 
                 <div class="slider-group">
                     <label>
-                        <span>Idade atual</span>
+                        <span><i class="fas fa-calendar-alt"></i> Idade atual</span>
                         <span class="value-badge" id="idadeAtualVal">30</span>
                     </label>
                     <input type="range" id="idadeAtual" min="18" max="70" value="30">
@@ -56,7 +72,7 @@
 
                 <div class="slider-group">
                     <label>
-                        <span>Idade de aposentadoria</span>
+                        <span><i class="fas fa-flag-checkered"></i> Idade de aposentadoria</span>
                         <span class="value-badge" id="idadeAposVal">60</span>
                     </label>
                     <input type="range" id="idadeAposentadoria" min="40" max="80" value="60">
@@ -64,7 +80,7 @@
 
                 <div class="slider-group">
                     <label>
-                        <span>Patrimônio atual</span>
+                        <span><i class="fas fa-wallet"></i> Patrimônio atual</span>
                         <span class="value-badge" id="patrimonioAtualVal">R$ 50.000</span>
                     </label>
                     <input type="range" id="patrimonioAtual" min="0" max="500000" step="5000" value="50000">
@@ -72,7 +88,7 @@
 
                 <div class="slider-group">
                     <label>
-                        <span>Aporte mensal</span>
+                        <span><i class="fas fa-hand-holding-usd"></i> Aporte mensal</span>
                         <span class="value-badge" id="aporteMensalVal">R$ 1.000</span>
                     </label>
                     <input type="range" id="aporteMensal" min="0" max="10000" step="100" value="1000">
@@ -80,7 +96,7 @@
 
                 <div class="slider-group">
                     <label>
-                        <span>Taxa de juros real</span>
+                        <span><i class="fas fa-percent"></i> Taxa de juros real</span>
                         <span class="value-badge" id="taxaJurosVal">5.0%</span>
                     </label>
                     <input type="range" id="taxaJuros" min="0" max="15" step="0.5" value="5.0">
@@ -91,19 +107,19 @@
                         <input type="checkbox" id="modoAvancado">
                         <span class="toggle-slider"></span>
                     </label>
-                    <label>Modo Avançado (inflação + classes de ativos)</label>
+                    <label><i class="fas fa-microchip"></i> Modo Avançado (inflação + classes de ativos)</label>
                 </div>
 
                 <div id="painelAvancado" style="display: none;">
                     <div class="slider-group">
                         <label>
-                            <span>Inflação média anual</span>
+                            <span><i class="fas fa-chart-line"></i> Inflação média anual</span>
                             <span class="value-badge" id="inflacaoVal">3.0%</span>
                         </label>
                         <input type="range" id="inflacao" min="0" max="10" step="0.5" value="3.0">
                     </div>
                     <div class="radio-group">
-                        <p>Classe de ativo:</p>
+                        <p><i class="fas fa-chart-pie"></i> Classe de ativo:</p>
                         <div class="radio-options">
                             <label class="radio-card">
                                 <input type="radio" name="classeAtivo" value="conservador">
@@ -126,12 +142,10 @@
 
                 <div class="button-group">
                     <button id="btnCalcular" class="btn-primary">
-                        <span class="btn-icon"></span>
-                        Calcular Projeção
+                        <i class="fas fa-calculator"></i> Calcular Projeção
                     </button>
                     <button id="btnExportCSV" class="btn-secondary">
-                        <span class="btn-icon"></span>
-                        Exportar CSV
+                        <i class="fas fa-download"></i> Exportar CSV
                     </button>
                 </div>
             </div>
@@ -139,10 +153,10 @@
             <!-- Gráfico e tabela -->
             <div class="results-card animate-slide-right">
                 <div class="results-header">
-                    <h2>Evolução Patrimonial</h2>
+                    <h2><i class="fas fa-chart-line"></i> Evolução Patrimonial</h2>
                     <div class="live-indicator">
                         <div class="pulse-dot"></div>
-                        <span>Atualização em tempo real</span>
+                        <span><i class="fas fa-sync-alt"></i> Atualização em tempo real</span>
                     </div>
                 </div>
                 <div class="chart-container">
@@ -151,21 +165,27 @@
                 
                 <div class="resumo-meta">
                     <div class="meta-card">
-                        <span class="meta-icon"></span>
+                        <div class="meta-icon">
+                            <i class="fas fa-piggy-bank"></i>
+                        </div>
                         <div>
                             <p>Patrimônio na aposentadoria</p>
                             <strong id="patrimonioFinal">--</strong>
                         </div>
                     </div>
                     <div class="meta-card">
-                        <span class="meta-icon"></span>
+                        <div class="meta-icon">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
                         <div>
                             <p>Total aportado</p>
                             <strong id="totalAportado">--</strong>
                         </div>
                     </div>
                     <div class="meta-card">
-                        <span class="meta-icon"></span>
+                        <div class="meta-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
                         <div>
                             <p>Juros ganhos</p>
                             <strong id="jurosGanhos">--</strong>
@@ -173,7 +193,7 @@
                     </div>
                 </div>
 
-                <h3>Tabela Resumo Anual</h3>
+                <h3><i class="fas fa-table"></i> Tabela Resumo Anual</h3>
                 <div class="table-wrapper">
                     <table id="tabelaResumo">
                         <thead>
@@ -187,14 +207,5 @@
             </div>
         </div>
     </div>
-
     <script src="/frontend/js/app.js"></script>
-    <script>
-        // Menu mobile toggle
-        document.querySelector('.menu-toggle')?.addEventListener('click', () => {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-        });
-    </script>
-</body>
 </html>

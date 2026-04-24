@@ -4,57 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Educação Financeira | FinanFuture</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <link rel="stylesheet" href="/frontend/css/style.css">
+    <link rel="stylesheet" href="/frontend/css/style2.css">
     <link rel="stylesheet" href="/frontend/css/educacao.css">
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <div class="logo-icon">💰</div>
+                <div class="logo-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
                 <span class="logo-text">Finan<span class="highlight">Future</span></span>
             </div>
             <div class="nav-links">
-                <a href="../index.html" class="nav-link">Início</a>
-                <a href="simulador.html" class="nav-link">Simulador</a>
-                <a href="educacao.html" class="nav-link active">Educação</a>
-                <a href="dicas.html" class="nav-link">Dicas</a>
+                <a href="../index.html" class="nav-link">
+                    <i class="fas fa-home"></i> Início
+                </a>
+                <a href="simulador.html" class="nav-link">
+                    <i class="fas fa-calculator"></i> Simulador
+                </a>
+                <a href="educacao.html" class="nav-link active">
+                    <i class="fas fa-graduation-cap"></i> Educação
+                </a>
+                <a href="dicas.html" class="nav-link">
+                    <i class="fas fa-lightbulb"></i> Dicas
+                </a>
             </div>
         </div>
     </nav>
 
     <div class="dashboard">
         <div class="welcome-card animate-slide">
-            <h1>📚 Educação Financeira</h1>
-            <p>Aprenda os fundamentos para construir um futuro próspero</p>
+            <div class="welcome-icon">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <h1 class="hero-title">Educação Financeira</h1>
+            <p class="hero-subtitle">Aprenda os fundamentos para construir um futuro próspero</p>
         </div>
 
         <div class="education-grid">
+            
             <div class="edu-card" onclick="showLesson('juros-compostos')">
-                <div class="edu-icon">📈</div>
+                <div class="edu-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
                 <h3>Juros Compostos</h3>
                 <p>A magia dos juros sobre juros - o segredo para multiplicar seu patrimônio</p>
-                <div class="progress-bar"><div class="progress-fill" style="width: 75%"></div></div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 75%"></div>
+                </div>
+                <div class="card-footer">
+                    <span class="lesson-btn">Ver lição <i class="fas fa-arrow-right"></i></span>
+                </div>
             </div>
+            
             <div class="edu-card" onclick="showLesson('inflacao')">
-                <div class="edu-icon">📉</div>
+                <div class="edu-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
                 <h3>Inflação</h3>
                 <p>Como proteger seu poder de compra ao longo do tempo</p>
-                <div class="progress-bar"><div class="progress-fill" style="width: 60%"></div></div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 60%"></div>
+                </div>
+                <div class="card-footer">
+                    <span class="lesson-btn">Ver lição <i class="fas fa-arrow-right"></i></span>
+                </div>
             </div>
+           
             <div class="edu-card" onclick="showLesson('diversificacao')">
-                <div class="edu-icon">🎯</div>
+                <div class="edu-icon">
+                    <i class="fas fa-layer-group"></i>
+                </div>
                 <h3>Diversificação</h3>
                 <p>Não coloque todos os ovos na mesma cesta</p>
-                <div class="progress-bar"><div class="progress-fill" style="width: 85%"></div></div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 85%"></div>
+                </div>
+                <div class="card-footer">
+                    <span class="lesson-btn">Ver lição <i class="fas fa-arrow-right"></i></span>
+                </div>
             </div>
         </div>
     </div>
-
-    <script>
-        function showLesson(topic) {
-            alert(`📚 Lição sobre ${topic.replace('-', ' ')} em desenvolvimento!\nEm breve conteúdo completo.`);
-        }
-    </script>
 </body>
+<script src="/frontend/js/educacao.js"></script>
 </html>

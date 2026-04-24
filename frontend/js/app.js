@@ -1,4 +1,3 @@
-// Elementos DOM
 const idadeAtualSlider = document.getElementById('idadeAtual');
 const idadeAposSlider = document.getElementById('idadeAposentadoria');
 const patrimonioSlider = document.getElementById('patrimonioAtual');
@@ -10,7 +9,6 @@ const inflacaoSlider = document.getElementById('inflacao');
 const btnCalcular = document.getElementById('btnCalcular');
 const btnExport = document.getElementById('btnExportCSV');
 
-// Spans
 const idadeAtualVal = document.getElementById('idadeAtualVal');
 const idadeAposVal = document.getElementById('idadeAposVal');
 const patrimonioAtualVal = document.getElementById('patrimonioAtualVal');
@@ -37,7 +35,6 @@ function atualizarLabels() {
     taxaJurosVal.innerText = taxaJurosSlider.value + '%';
     if(inflacaoSlider) inflacaoValSpan.innerText = inflacaoSlider.value + '%';
     
-    // Adicionar efeito de vibração nos números
     document.querySelectorAll('.value-badge').forEach(badge => {
         badge.style.transform = 'scale(1.1)';
         setTimeout(() => badge.style.transform = 'scale(1)', 150);
@@ -82,7 +79,6 @@ function aplicarTaxaPorClasse() {
     taxaJurosVal.innerText = taxa + '%';
 }
 
-// Função principal de cálculo - AGORA VIA API
 async function calcularProjecao() {
     try {
         let idadeAtual = parseInt(idadeAtualSlider.value);
@@ -180,21 +176,21 @@ async function calcularProjecao() {
         // Mensagem de erro mais amigável
         let mensagemErro = "Erro ao calcular projeção.\n\n";
         if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
-            mensagemErro += "❌ Não foi possível conectar ao servidor backend.\n\n";
+            mensagemErro += "Não foi possível conectar ao servidor backend.\n\n";
             mensagemErro += "Verifique se o Spring Boot está rodando em:\n";
             mensagemErro += "http://localhost:8080\n\n";
             mensagemErro += "Para iniciar o backend, execute:\n";
             mensagemErro += "cd backend && mvn spring-boot:run";
         } else if (error.message.includes('400')) {
-            mensagemErro += "❌ Dados inválidos. Verifique os parâmetros informados.";
+            mensagemErro += "Dados inválidos. Verifique os parâmetros informados.";
         } else {
-            mensagemErro += `❌ ${error.message}`;
+            mensagemErro += `${error.message}`;
         }
         
         alert(mensagemErro);
     } finally {
         // Restaurar botão
-        btnCalcular.innerHTML = '📈 Calcular Projeção';
+        btnCalcular.innerHTML = 'Calcular Projeção';
         btnCalcular.disabled = false;
     }
 }

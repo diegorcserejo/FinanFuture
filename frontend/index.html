@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FinanFuture | Planejamento de Aposentadoria</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/frontend/css/style.css">
     <link rel="stylesheet" href="/frontend/css/style2.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -12,59 +13,107 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <div class="logo-icon">💰</div>
+                <div class="logo-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
                 <span class="logo-text">Finan<span class="highlight">Future</span></span>
             </div>
             <div class="nav-links">
-                <a href="index.html" class="nav-link active">Início</a>
-                <a href="pages/simulador.html" class="nav-link">Simulador</a>
-                <a href="pages/educacao.html" class="nav-link">Educação</a>
-                <a href="pages/dicas.html" class="nav-link">Dicas</a>
+                <a href="index.html" class="nav-link active">
+                    <i class="fas fa-home"></i> Início
+                </a>
+                <a href="pages/simulador.html" class="nav-link">
+                    <i class="fas fa-calculator"></i> Simulador
+                </a>
+                <a href="pages/educacao.html" class="nav-link">
+                    <i class="fas fa-graduation-cap"></i> Educação
+                </a>
+                <a href="pages/dicas.html" class="nav-link">
+                    <i class="fas fa-lightbulb"></i> Dicas
+                </a>
             </div>
-            <div class="menu-toggle">☰</div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
     </nav>
-
+    
     <div class="dashboard">
-        <div class="hero-section animate-slide">
-            <h1 class="hero-title">💰 FinanFuture</h1>
-            <p class="hero-subtitle">Planeje hoje, viva amanhã com tranquilidade financeira</p>
-            <a href="pages/simulador.html" class="cta-button">
-                 Começar Agora
-                <span>→</span>
-            </a>
+        <div class="welcome-card animate-slide">
+            <div class="welcome-content">
+                <div class="hero-icon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <h1 class="hero-title">FinanFuture</h1>
+                <p class="hero-subtitle">Planeje hoje, viva amanhã com tranquilidade financeira</p>
+                <a href="pages/simulador.html" class="cta-button">
+                    <i class="fas fa-rocket"></i> Começar Agora
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
         </div>
 
-        <div class="features-grid">
-            <div class="feature-card" onclick="location.href='pages/simulador.html'">
-                <div class="feature-icon"></div>
-                <h3>Simulador Avançado</h3>
-                <p>Projeções precisas com juros compostos, inflação e múltiplos cenários</p>
+        <div class="concepts-section">
+            <div class="concepts-grid">
+                <div class="concept-card concept-start">
+                    <div class="concept-amount">
+                        <i class="fas fa-coins"></i>
+                        <span>R$ 10.000</span>
+                    </div>
+                    <div class="concept-label">Começo</div>
+                </div>
+                <div class="concept-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                    <i class="fas fa-arrow-right"></i>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                <div class="concept-card concept-mid">
+                    <div class="concept-amount">
+                        <i class="fas fa-chart-line"></i>
+                        <span>R$ 25.000</span>
+                    </div>
+                    <div class="concept-label">5 anos</div>
+                </div>
+                <div class="concept-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                    <i class="fas fa-arrow-right"></i>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                <div class="concept-card concept-end">
+                    <div class="concept-amount">
+                        <i class="fas fa-chart-line"></i>
+                        <span>R$ 62.000</span>
+                    </div>
+                    <div class="concept-label">10 anos</div>
+                </div>
             </div>
-            <div class="feature-card" onclick="location.href='pages/educacao.html'">
-                <div class="feature-icon"></div>
-                <h3>Educação Financeira</h3>
-                <p>Aprenda os fundamentos para construir um futuro próspero</p>
-            </div>
-            <div class="feature-card" onclick="location.href='pages/dicas.html'">
-                <div class="feature-icon"></div>
-                <h3>Dicas Exclusivas</h3>
-                <p>Estratégias práticas para alcançar independência financeira</p>
+            <div class="concept-footer">
+                <i class="fas fa-lightbulb"></i>
+                <p>Com 6% ao ano, seu dinheiro dobra a cada 12 anos</p>
             </div>
         </div>
 
         <div class="stats-bar">
             <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
                 <div class="stat-number">10K+</div>
-                <div>Usuários ativos</div>
+                <div class="stat-label">Usuários ativos</div>
             </div>
             <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-pie"></i>
+                </div>
                 <div class="stat-number">R$ 50M+</div>
-                <div>Patrimônio planejado</div>
+                <div class="stat-label">Patrimônio planejado</div>
             </div>
             <div class="stat-item">
+                <div class="stat-icon">
+                    <i class="fas fa-star"></i>
+                </div>
                 <div class="stat-number">98%</div>
-                <div>Satisfação</div>
+                <div class="stat-label">Satisfação</div>
             </div>
         </div>
     </div>
@@ -75,5 +124,6 @@
             navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
         });
     </script>
+    <script src="/frontend/js/index.js"></script>
 </body>
 </html>

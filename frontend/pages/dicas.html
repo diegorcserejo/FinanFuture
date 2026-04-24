@@ -4,62 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dicas Financeiras | FinanFuture</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/frontend/css/style.css">
+    <link rel="stylesheet" href="/frontend/css/style2.css">
     <link rel="stylesheet" href="/frontend/css/dicas.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <div class="logo-icon">💰</div>
+                <div class="logo-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
                 <span class="logo-text">Finan<span class="highlight">Future</span></span>
             </div>
             <div class="nav-links">
-                <a href="../index.html" class="nav-link">Início</a>
-                <a href="simulador.html" class="nav-link">Simulador</a>
-                <a href="educacao.html" class="nav-link">Educação</a>
-                <a href="dicas.html" class="nav-link active">Dicas</a>
+                <a href="../index.html" class="nav-link">
+                    <i class="fas fa-home"></i> Início
+                </a>
+                <a href="simulador.html" class="nav-link">
+                    <i class="fas fa-calculator"></i> Simulador
+                </a>
+                <a href="educacao.html" class="nav-link">
+                    <i class="fas fa-graduation-cap"></i> Educação
+                </a>
+                <a href="dicas.html" class="nav-link active">
+                    <i class="fas fa-lightbulb"></i> Dicas
+                </a>
             </div>
-            <div class="menu-toggle">☰</div>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
         </div>
     </nav>
 
     <div class="dashboard">
         <div class="welcome-card animate-slide">
-            <h1>💡 Dicas para Aposentadoria</h1>
-            <p>Estratégias práticas para alcançar sua independência financeira</p>
+            <div class="welcome-icon">
+                <i class="fas fa-lightbulb"></i>
+            </div>
+            <h1 class="hero-title">
+            <i class="fas fa-chart-line"></i> Dicas para Aposentadoria
+            </h1>
+            <p class="hero-subtitle">Estratégias práticas para alcançar sua independência financeira</p>
         </div>
 
         <div class="tips-list">
-            <div class="tip-item">
+            <div class="tip-item" onclick="showTipDetail('comece-hoje')">
                 <div class="tip-number">1</div>
-                <div>
-                    <strong>Comece hoje, não amanhã</strong>
+                <div class="tip-content">
+                    <strong></i> Comece hoje, não amanhã</strong>
                     <p>O tempo é seu maior aliado nos juros compostos</p>
                 </div>
-            </div>
-            <div class="tip-item">
-                <div class="tip-number">2</div>
-                <div>
-                    <strong>Aporte consistente > timing perfeito</strong>
-                    <p>Regularidade nos investimentos supera tentar acertar o mercado</p>
+                <div class="tip-icon">
+                    <i class="fas fa-chevron-right"></i>
                 </div>
             </div>
-            <div class="tip-item">
+            <div class="tip-item" onclick="showTipDetail('aporte-consistente')">
+                <div class="tip-number">2</div>
+                <div class="tip-content">
+                    <strong></i> Aporte consistente > timing perfeito</strong>
+                    <p>Regularidade nos investimentos supera tentar acertar o mercado</p>
+                </div>
+                <div class="tip-icon">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+            <div class="tip-item" onclick="showTipDetail('revise-gastos')">
                 <div class="tip-number">3</div>
-                <div>
-                    <strong>Revise seus gastos anualmente</strong>
+                <div class="tip-content">
+                    <strong></i> Revise seus gastos anualmente</strong>
                     <p>Reduza despesas desnecessárias e direcione para investimentos</p>
+                </div>
+                <div class="tip-icon">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+            <div class="tip-item" onclick="showTipDetail('diversifique')">
+                <div class="tip-number">4</div>
+                <div class="tip-content">
+                    <strong></i> Diversifique seus investimentos</strong>
+                    <p>Não coloque todos os ovos na mesma cesta</p>
+                </div>
+                <div class="tip-icon">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+            <div class="tip-item" onclick="showTipDetail('reserva-emergencia')">
+                <div class="tip-number">5</div>
+                <div class="tip-content">
+                    <strong></i> Mantenha reserva de emergência</strong>
+                    <p>6 a 12 meses de gastos em investimentos líquidos</p>
+                </div>
+                <div class="tip-icon">
+                    <i class="fas fa-chevron-right"></i>
                 </div>
             </div>
         </div>
-    </div>
-
-    <script>
-        document.querySelector('.menu-toggle')?.addEventListener('click', () => {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-        });
-    </script>
 </body>
+<script src="/frontend/js/dicas.js"></script>
 </html>
