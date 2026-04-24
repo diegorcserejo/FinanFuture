@@ -24,6 +24,10 @@ const jurosGanhosSpan = document.getElementById('jurosGanhos');
 const tabelaCorpo = document.getElementById('tabelaCorpo');
 
 let grafico = null;
+let dadosAtuais = { anosArray: [], idadesArray: [], patrimonioArray: [], aportesPorAno: [], patrimonioRealArray: [] };
+
+// Configuração da API
+const API_URL = 'http://localhost:8080/api/aposentadoria/calcular';
 
 function atualizarLabels() {
     idadeAtualVal.innerText = idadeAtualSlider.value;
@@ -78,7 +82,8 @@ function aplicarTaxaPorClasse() {
     taxaJurosVal.innerText = taxa + '%';
 }
 
-function calcularProjecao() {
+// Função principal de cálculo - AGORA VIA API
+async function calcularProjecao() {
     try {
         let idadeAtual = parseInt(idadeAtualSlider.value);
         let idadeApos = parseInt(idadeAposSlider.value);
@@ -93,54 +98,75 @@ function calcularProjecao() {
         const anos = idadeApos - idadeAtual;
         if(anos <= 0) return;
         
-        let patrimonioInicial = parseFloat(patrimonioSlider.value);
-        let aporteMensal = parseFloat(aporteSlider.value);
-        let taxaJurosAnual = parseFloat(taxaJurosSlider.value) / 100;
-        let inflacaoAnual = 0;
-        let modoAvancado = modoAvancadoCheck.checked;
+        // Mostrar loading no botão
+        const textoOriginal = btnCalcular.innerHTML;
+        btnCalcular.innerHTML = '⏳ Calculando...';
+        btnCalcular.disabled = true;
         
-        if(modoAvancado && inflacaoSlider) {
-            inflacaoAnual = parseFloat(inflacaoSlider.value) / 100;
+        // Preparar dados para API
+        const requestBody = {
+            idadeAtual: idadeAtual,
+            idadeAposentadoria: idadeApos,
+            patrimonioAtual: parseFloat(patrimonioSlider.value),
+            aporteMensal: parseFloat(aporteSlider.value),
+            taxaJurosReal: parseFloat(taxaJurosSlider.value),
+            modoAvancado: modoAvancadoCheck.checked,
+            inflacao: modoAvancadoCheck.checked ? parseFloat(inflacaoSlider.value) : 0,
+            classeAtivo: document.querySelector('input[name="classeAtivo"]:checked')?.value || 'moderado'
+        };
+        
+        // Chamar API
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody)
+        });
+        
+        if (!response.ok) {
+            const errorData = await response.text();
+            throw new Error(errorData || 'Erro na comunicação com o servidor');
         }
         
-        let aporteAnual = aporteMensal * 12;
-        let patrimonio = patrimonioInicial;
-        let anosArray = [];
-        let idadesArray = [];
-        let patrimonioArray = [];
-        let aporteAcumulado = 0;
-        let aportesPorAno = [];
+        const data = await response.json();
         
-        for(let ano = 1; ano <= anos; ano++) {
-            patrimonio = patrimonio * (1 + taxaJurosAnual) + aporteAnual;
-            aporteAcumulado += aporteAnual;
-            
-            let idadeCorrente = idadeAtual + ano;
-            anosArray.push(idadeAtual + ano);
-            idadesArray.push(idadeCorrente);
-            patrimonioArray.push(patrimonio);
-            aportesPorAno.push(aporteAnual);
-        }
+        // Processar dados recebidos da API
+        const anosArray = [];
+        const idadesArray = [];
+        const patrimonioArray = [];
+        const aportesPorAno = [];
+        const patrimonioRealArray = [];
         
-        let patrimonioRealArray = [];
-        if(modoAvancado && inflacaoAnual > 0) {
-            let fatorInflacaoAcum = 1;
-            for(let i=0; i<patrimonioArray.length; i++) {
-                fatorInflacaoAcum *= (1 + inflacaoAnual);
-                let valorReal = patrimonioArray[i] / fatorInflacaoAcum;
-                patrimonioRealArray.push(valorReal);
+        data.projecaoAnual.forEach(item => {
+            anosArray.push(item.idade);
+            idadesArray.push(item.idade);
+            patrimonioArray.push(item.patrimonio);
+            aportesPorAno.push(item.aporteAnual);
+            if (modoAvancadoCheck.checked && item.patrimonioReal) {
+                patrimonioRealArray.push(item.patrimonioReal);
             }
-        }
+        });
         
-        const patrimonioFinal = patrimonio;
-        const totalJuros = patrimonioFinal - patrimonioInicial - aporteAcumulado;
+        // Armazenar dados para exportação
+        dadosAtuais = {
+            anosArray: anosArray,
+            idadesArray: idadesArray,
+            patrimonioArray: patrimonioArray,
+            aportesPorAno: aportesPorAno,
+            patrimonioRealArray: patrimonioRealArray
+        };
         
-        patrimonioFinalSpan.innerText = formatMoney(patrimonioFinal);
-        totalAportadoSpan.innerText = formatMoney(aporteAcumulado);
-        jurosGanhosSpan.innerText = formatMoney(totalJuros);
+        // Atualizar resumo
+        patrimonioFinalSpan.innerText = formatMoney(data.patrimonioFinal);
+        totalAportadoSpan.innerText = formatMoney(data.totalAportado);
+        jurosGanhosSpan.innerText = formatMoney(data.jurosGanhos);
         
-        preencherTabela(anosArray, idadesArray, patrimonioArray, aportesPorAno, modoAvancado, patrimonioRealArray);
-        desenharGrafico(anosArray, patrimonioArray, modoAvancado, patrimonioRealArray);
+        // Preencher tabela
+        preencherTabela(anosArray, idadesArray, patrimonioArray, aportesPorAno, modoAvancadoCheck.checked, patrimonioRealArray);
+        
+        // Desenhar gráfico
+        desenharGrafico(anosArray, patrimonioArray, modoAvancadoCheck.checked, patrimonioRealArray);
         
         // Feedback visual
         document.querySelector('.results-card').style.animation = 'none';
@@ -149,8 +175,27 @@ function calcularProjecao() {
         }, 10);
         
     } catch(error) {
-        console.error(error);
-        alert("Erro no cálculo, verifique os parâmetros.");
+        console.error('Erro detalhado:', error);
+        
+        // Mensagem de erro mais amigável
+        let mensagemErro = "Erro ao calcular projeção.\n\n";
+        if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+            mensagemErro += "❌ Não foi possível conectar ao servidor backend.\n\n";
+            mensagemErro += "Verifique se o Spring Boot está rodando em:\n";
+            mensagemErro += "http://localhost:8080\n\n";
+            mensagemErro += "Para iniciar o backend, execute:\n";
+            mensagemErro += "cd backend && mvn spring-boot:run";
+        } else if (error.message.includes('400')) {
+            mensagemErro += "❌ Dados inválidos. Verifique os parâmetros informados.";
+        } else {
+            mensagemErro += `❌ ${error.message}`;
+        }
+        
+        alert(mensagemErro);
+    } finally {
+        // Restaurar botão
+        btnCalcular.innerHTML = '📈 Calcular Projeção';
+        btnCalcular.disabled = false;
     }
 }
 
@@ -257,37 +302,57 @@ function formatMoney(value) {
 }
 
 function exportarCSV() {
+    if (dadosAtuais.patrimonioArray.length === 0) {
+        alert('Calcule uma projeção primeiro antes de exportar!');
+        return;
+    }
+    
     const linhas = [];
     const cabecalho = ['Ano', 'Idade', 'Patrimônio (R$)', 'Aporte anual (R$)'];
     const modoAvanc = modoAvancadoCheck.checked;
-    if(modoAvanc) cabecalho.push('Patrimônio Real (R$)');
+    if(modoAvanc && dadosAtuais.patrimonioRealArray.length > 0) {
+        cabecalho.push('Patrimônio Real (R$)');
+    }
     linhas.push(cabecalho);
     
-    const rows = tabelaCorpo.querySelectorAll('tr');
-    for(let row of rows) {
-        let linhaDados = [];
-        for(let cell of row.cells) {
-            linhaDados.push(cell.innerText.trim());
+    for(let i = 0; i < dadosAtuais.patrimonioArray.length; i++) {
+        const anoAtual = new Date().getFullYear() + (i+1);
+        const linha = [
+            anoAtual,
+            dadosAtuais.idadesArray[i],
+            dadosAtuais.patrimonioArray[i],
+            dadosAtuais.aportesPorAno[i]
+        ];
+        if(modoAvanc && dadosAtuais.patrimonioRealArray[i] !== undefined) {
+            linha.push(dadosAtuais.patrimonioRealArray[i]);
         }
-        if(linhaDados.length) linhas.push(linhaDados);
+        linhas.push(linha);
     }
+    
     const ws = XLSX.utils.aoa_to_sheet(linhas);
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Projecao');
-    XLSX.writeFile(wb, `projecao_${new Date().toISOString().slice(0,19)}.xlsx`);
+    XLSX.utils.book_append_sheet(wb, ws, 'Projecao_Aposentadoria');
+    XLSX.writeFile(wb, `projecao_aposentadoria_${new Date().toISOString().slice(0,19)}.xlsx`);
 }
 
+// Event listeners
 btnCalcular.addEventListener('click', calcularProjecao);
 btnExport.addEventListener('click', exportarCSV);
 
+// Auto-calcular quando sliders/radios mudarem (exceto modo avançado que já chama)
 document.querySelectorAll('input[type="range"], input[type="radio"]').forEach(el => {
     el.addEventListener('input', () => { 
         if(el.id !== 'modoAvancado') calcularProjecao(); 
     });
 });
 
+// Inicialização
 atualizarLabels();
-calcularProjecao();
+
+// Tentar calcular ao carregar a página (se backend estiver rodando)
+setTimeout(() => {
+    calcularProjecao();
+}, 100);
 
 // Menu mobile toggle
 document.querySelector('.menu-toggle')?.addEventListener('click', () => {

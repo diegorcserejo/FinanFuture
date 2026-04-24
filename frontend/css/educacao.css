@@ -1,0 +1,34 @@
+.education-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+.edu-card {
+    background: white;
+    border-radius: 20px;
+    padding: 1.5rem;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+.edu-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+.edu-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+.progress-bar {
+    background: #e2e8f0;
+    border-radius: 10px;
+    height: 8px;
+    margin-top: 1rem;
+    overflow: hidden;
+}
+.progress-fill {
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    width: 0%;
+    height: 100%;
+    transition: width 1s ease;
+}
